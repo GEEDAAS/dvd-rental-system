@@ -1,0 +1,43 @@
+# Definición de los servicios (contenedores) que compondrán nuestra aplicación
+services:
+  # Nuestro servicio de base de datos PostgreSQL
+  db:
+    # Usa la imagen oficial de PostgreSQL 14, versión 'alpine' por ser ligera
+    image: postgres:14-alpine
+    # Un nombre amigable para nuestro contenedor
+    container_name: dvd_db
+    # Mapea el puerto 5432 del contenedor al puerto 5432 de tu máquina local
+    # para que puedas conectarte desde herramientas externas.
+    ports:
+      - "5432:5432"
+    # Variables de entorno para configurar la base de datos
+    environment:
+      - POSTGRES_USER=admin      # Usuario para la base de datos
+      - POSTGRES_PASSWORD=password # Contraseña del usuario
+      - POSTGRES_DB=pagila       # Nombre de la base de datos a crear
+    # Monta un volumen. Esto le dice a Docker que copie los scripts de la carpeta
+    # local 'db/init' a una carpeta especial dentro del contenedor que se ejecuta
+    # al iniciar por primera vez.
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
+    # Política de reinicio: si el contenedor falla, Docker intentará levantarlo de nuevo.
+    restart: always
+
+    # --- Servicio de la API en Rust (NUEVO) ---
+  api:
+    container_name: dvd_api
+    # Le dice a Docker que construya una imagen usando el Dockerfile
+    # que se encuentra en la carpeta ./backend/api
+    build:
+      context: ./backend/api
+    ports:
+      - "8080:8080"
+    # ¡MUY IMPORTANTE! Esta variable de entorno sobreescribe la del .env
+    # Le dice a la API que se conecte al servicio 'db' en el puerto 5432.
+    # Docker se encarga de que 'db' resuelva a la IP del contenedor de la DB.
+    environment:
+      - DATABASE_URL=postgres://admin:password@db:5432/pagila
+    # Asegura que el contenedor 'db' se inicie antes que el de la 'api'.
+    depends_on:
+      - db
+    restart: on-failure

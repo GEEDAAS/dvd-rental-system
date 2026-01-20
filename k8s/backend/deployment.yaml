@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvd-backend
+  namespace: dvd-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvd-backend
+  template:
+    metadata:
+      labels:
+        app: dvd-backend
+    spec:
+      containers:
+        - name: backend
+          image: dvd-backend:1.0
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: dvd-backend-secret

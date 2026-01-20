@@ -1,0 +1,8 @@
+# Ignorar el archivo de variables de entorno
+.env
+
+# Ignorar el directorio de compilación de Rust
+/target
+
+# Ignorar información de dependencias
+Cargo.lock

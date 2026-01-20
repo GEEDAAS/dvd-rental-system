@@ -1,0 +1,238 @@
+/* === TEMA Y FUENTE PRINCIPAL === */
+:root {
+  font-family: 'Segoe UI', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1a1d21; /* Un fondo oscuro más suave */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Variables de color para fácil mantenimiento */
+  --color-primary: #7c3aed; /* Morado/Violeta */
+  --color-surface1: #2a2f36; /* Superficie de tarjetas */
+  --color-surface2: #383e46; /* Superficies secundarias (headers de tablas) */
+  --color-border: #4a515c;
+  --color-text-muted: #a0aec0;
+  --color-success: #34d399;
+  --color-error: #f87171;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 2rem auto;
+}
+
+/* === LAYOUT PRINCIPAL Y NAVEGACIÓN === */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-surface1);
+  padding: 0.5rem;
+  border-radius: 999px; /* Píldora */
+  border: 1px solid var(--color-border);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+nav button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+nav button:hover {
+  background-color: var(--color-surface2);
+  color: white;
+}
+
+nav button.active {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* === ESTILO DE "TARJETAS" (CARDS) === */
+.card {
+  background-color: var(--color-surface1);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.card h2, .card h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+/* === FORMULARIOS Y BOTONES === */
+form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: #1a1d21;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+button:hover {
+  background-color: #6d28d9; /* Un morado más oscuro */
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-surface2);
+}
+.button-danger {
+  background-color: #dc2626; /* Rojo */
+}
+.button-danger:hover {
+  background-color: #b91c1c; /* Rojo oscuro */
+}
+
+/* === TABLAS === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+th, td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+thead {
+  background-color: var(--color-surface2);
+}
+
+th {
+  font-weight: 600;
+  color: white;
+}
+
+tbody tr:hover {
+  background-color: var(--color-surface2);
+}
+
+/* === REPORTES === */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+ol, ul {
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* === MENSAJES === */
+.message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.message.success {
+  background-color: rgba(52, 211, 153, 0.1);
+  border-left: 4px solid var(--color-success);
+  color: var(--color-success);
+}
+.message.error {
+  background-color: rgba(248, 113, 113, 0.1);
+  border-left: 4px solid var(--color-error);
+  color: var(--color-error);
+}
+
+/* Clases de utilidad */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}

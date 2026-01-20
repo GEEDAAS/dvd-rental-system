@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+
+# Rust
+target/
+
+# Env
+.env
+
+# Tauri
+src-tauri/target/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

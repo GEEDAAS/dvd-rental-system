@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dvd-backend-ingress
+  namespace: dvd-system
+spec:
+  rules:
+    - host: dvd-api.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dvd-backend-service
+                port:
+                  number: 80
