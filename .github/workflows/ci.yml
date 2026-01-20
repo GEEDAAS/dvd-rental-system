@@ -1,0 +1,47 @@
+name: CI - DVD Rental System
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend:
+    name: Backend - Rust API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build backend
+        working-directory: backend/api
+        run: cargo build --release
+
+  frontend:
+    name: Frontend - Tauri UI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install frontend dependencies
+        working-directory: dvd-rental-ui
+        run: npm install
+
+      - name: Build frontend
+        working-directory: dvd-rental-ui
+        run: npm run build
