@@ -1,0 +1,41 @@
+name: Build and Release Tauri App
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Tauri dependencies
+        run: |
+          npm install
+        working-directory: dvd-rental-ui
+
+      - name: Build Tauri app
+        run: |
+          npm run tauri build
+        working-directory: dvd-rental-ui
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dvd-rental-ui/src-tauri/target/release/bundle/**/*.msi
+            dvd-rental-ui/src-tauri/target/release/bundle/**/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
